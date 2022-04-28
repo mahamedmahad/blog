@@ -15,7 +15,7 @@ const Header = () => {
                 <div className="md:float-left block">
                     {/* eslint-disable-next-line @next/next/link-passhref */}
                     <Link href="/">
-                        <span className="cursor-pointer font-bold text-4xl text-white">Blog</span>
+                        <span className="cursor-pointer font-bold sm:text-4xl text-white text-2xl">Blog</span>
                     </Link>
                 </div>
 
