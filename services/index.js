@@ -1,4 +1,4 @@
-import { request, gql } from 'graphql-request';
+import {request, gql} from 'graphql-request';
 
 
 const graphqlAPI = process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT;
@@ -39,3 +39,52 @@ export const getPosts = async () => {
 
 
 };
+
+export const getRecentPosts = async () => {
+    const query = gql`
+        query GetPostDetails(){
+            # Ordering the posts by the createdAt field in ascending order 
+            #and limiting the number of posts returned to 3. 
+            posts (
+                orderBy: createdAt_ASC
+                last:3
+            ) {
+                title
+                featuredImage{
+                    url
+                }
+                createdAt
+                slug
+            }
+        }
+    `
+
+    const result = await request(graphqlAPI, query);
+
+    return result.posts;
+}
+
+
+export const getSimilarPosts = async () => {
+    const query = gql`
+        query GetPostDetails($slug:String!, $categories: [String!]) {
+            # querying the posts table for all posts that are not the current post and have a category that matches the
+            # current posts category
+            #Limiting the number of posts returned to 3.
+            posts(
+                where:{slug_not:$slug, AND:{categories_some: {slug_in:$categories}}}
+                last:3
+            ) {
+                title
+                featuredImage {
+                    url
+                }
+                createdAt
+                slug
+            }
+        }
+    `
+
+    const result = await request(graphqlAPI, query);
+    return result.posts
+}
