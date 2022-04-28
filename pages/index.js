@@ -1,25 +1,49 @@
 import Head from "next/head";
 
+//posts
+import {getPosts} from "../services";
 
 //components
 import {PostCard, Categories, PostWidget} from "../components";
+import {gql, request} from "graphql-request";
 
-const posts = [
-    {
-        title: "React Testing",
-        excerpt: "Learn React Testing",
-    },
-    {
-        title: "React With TailwindCss",
-        excerpt: "Learning tailwindCss",
-    },
-    {
-        title: "Nextjs ",
-        excerpt: "Learn Nextjs",
+/*const graphqlAPI = process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT;
+const query = gql`
+    query {
+        postsConnection {
+            edges {
+                node {
+                    author {
+                        bio
+                        name
+                        photo {
+                            url
+                        }
+                    }
+                    createdAt
+                    slug
+                    title
+                    excerpt
+                    featuredImage {
+                        url
+                    }
+                    categories {
+                        name
+                        slug
+                    }
+                }
+            }
+        }
     }
-]
+`;
 
-export default function Home() {
+//const result = await request(graphqlAPI, query);
+request(graphqlAPI, query).then((data) => console.log(data))
+
+ */
+
+
+export default function Home({posts}) {
     return (
         <div className="container mx-auto px-10 mb-8">
             <Head>
@@ -29,7 +53,7 @@ export default function Home() {
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
                 <div className="lg:col-span-8 col-span-1">
-                    {posts.map((post, index) => <PostCard post={post} key={post.title}/>
+                    {posts.map((post) => <PostCard post={post} key={post.title}/>
                     )}
 
                 </div>
@@ -44,4 +68,12 @@ export default function Home() {
             </div>
         </div>
     )
+}
+
+export async function getStaticProps () {
+    const posts = (await getPosts()) || []
+
+    return {
+        props: {posts}
+    }
 }
