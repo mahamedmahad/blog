@@ -5,49 +5,15 @@ import {getPosts} from "../services";
 
 //components
 import {PostCard, Categories, PostWidget} from "../components";
-import {gql, request} from "graphql-request";
 
-/*const graphqlAPI = process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT;
-const query = gql`
-    query {
-        postsConnection {
-            edges {
-                node {
-                    author {
-                        bio
-                        name
-                        photo {
-                            url
-                        }
-                    }
-                    createdAt
-                    slug
-                    title
-                    excerpt
-                    featuredImage {
-                        url
-                    }
-                    categories {
-                        name
-                        slug
-                    }
-                }
-            }
-        }
-    }
-`;
 
-//const result = await request(graphqlAPI, query);
-request(graphqlAPI, query).then((data) => console.log(data))
-
- */
 
 
 export default function Home({posts}) {
     return (
         <div className="container mx-auto px-10 mb-8">
             <Head>
-                <title>NextJs Blog</title>
+                <title>Blog</title>
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
 

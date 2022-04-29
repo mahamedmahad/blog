@@ -2,13 +2,12 @@ import React from "react";
 
 import Link from "next/link";
 
-const categories = [
-    {
-        name: "React", slug:'react'
-    },
-    { name: "Web Development", slug: "web-dev"}
-]
+import useFetchCategories from "../../hooks/useFetchCategories";
+
 const Header = () => {
+
+    const {categories} = useFetchCategories()
+
     return (
         <div className="container mx-auto px-10 mb-8">
             <div className="border-b-2 border-blue-400 w-full inline-block  py-8">
