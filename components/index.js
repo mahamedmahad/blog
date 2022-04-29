@@ -3,3 +3,7 @@ export {default as PostCard} from './post-card';
 export {default as PostWidget} from './post-widget';
 export {default as Header} from './header';
 export {default as Layout} from './layout';
+export {default as Author} from './author';
+export {default as CommentForm} from './comment-form';
+export {default as PostDetail} from './post-detail';
+export {default as Comments} from './comments';

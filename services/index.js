@@ -65,7 +65,7 @@ export const getRecentPosts = async () => {
 }
 
 
-export const getSimilarPosts = async () => {
+export const getSimilarPosts = async (categories, slug) => {
     const query = gql`
         query GetPostDetails($slug:String!, $categories: [String!]) {
             # querying the posts table for all posts that are not the current post and have a category that matches the
@@ -85,7 +85,7 @@ export const getSimilarPosts = async () => {
         }
     `
 
-    const result = await request(graphqlAPI, query);
+    const result = await request(graphqlAPI, query, {categories, slug});
     return result.posts
 }
 
@@ -102,4 +102,44 @@ export const getCategories = async () => {
     const result = await request(graphqlAPI, query);
 
     return result.categories;
+};
+
+
+export const getPostDetails = async (slug) => {
+    const query = gql`
+        query GetPostDetails($slug: String){
+            post(where: {slug: $slug})
+            {
+                author {
+                    bio
+                    name
+                    photo {
+                        url
+                    }
+                }
+                createdAt
+                slug
+                title
+                excerpt
+                featuredImage {
+                    url
+                }
+                categories {
+                    name
+                    slug
+                }
+                content {
+                    raw
+                }
+            }
+        }
+        
+        
+    `;
+
+    const result = await request(graphqlAPI, query, {slug});
+
+    return result.post;
+
+
 };
