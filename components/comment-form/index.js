@@ -113,7 +113,7 @@ const CommentForm = ({slug}) => {
             <div className="mt-8 text-center">
 
                 {showSuccessMessage ? (
-                    <span className="text-lg float-right font-semibold mt-3 text-green-400 ">
+                    <span className="text-lg  font-semibold mt-3 text-green-400 ">
                         Comment submitted for review
                     </span>
                 ) : (

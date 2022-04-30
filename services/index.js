@@ -42,7 +42,7 @@ export const getPosts = async () => {
 
 export const getRecentPosts = async () => {
     const query = gql`
-        query GetPostDetails(){
+        query GetPostDetails {
             # Ordering the posts by the createdAt field in ascending order 
             #and limiting the number of posts returned to 3. 
             posts (
@@ -162,3 +162,24 @@ export const submitComment = async (obj) => {
 
     return result.json();
 }
+
+
+/**
+ * It gets the comments for each post
+ * return An array of comments.
+ */
+export const getComments = async (slug) => {
+    const query = gql`
+        query GetComments($slug: String!) {
+            comments(where: { post : { slug: $slug }}) {
+                name 
+                createdAt
+                comment
+            }
+        }
+    `;
+
+    const result = await request(graphqlAPI, query, { slug });
+
+    return result.comments;
+};

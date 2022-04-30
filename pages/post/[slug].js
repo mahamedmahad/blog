@@ -29,7 +29,6 @@ const PostDetails = ({post}) => {
                 </div>
 
             </div>
-            post details
         </div>
     )
 }
