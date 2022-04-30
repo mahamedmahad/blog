@@ -89,6 +89,9 @@ export const getSimilarPosts = async (categories, slug) => {
     return result.posts
 }
 
+/**
+ * returns An array of objects with the name and slug of each category.
+ */
 export const getCategories = async () => {
     const query = gql`
         query GetCategories {
@@ -133,8 +136,8 @@ export const getPostDetails = async (slug) => {
                 }
             }
         }
-        
-        
+
+
     `;
 
     const result = await request(graphqlAPI, query, {slug});
@@ -143,3 +146,19 @@ export const getPostDetails = async (slug) => {
 
 
 };
+
+/**
+ *  takes an object as an argument, and then sends that object to the server
+ * @returns The result of the fetch request.
+ */
+export const submitComment = async (obj) => {
+    const result = await fetch('/api/comments', {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json'
+        },
+        body: JSON.stringify(obj)
+    })
+
+    return result.json();
+}
