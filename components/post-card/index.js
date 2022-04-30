@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const PostCard = ({post}) => {
     //console.log(post.node)
-    const {featuredImage, slug, title, author, createdAt, excerpt} = post.node
+    const {featuredImage, slug, title, author, createdAt, excerpt} = post
 
 
     return (
